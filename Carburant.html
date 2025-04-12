@@ -1,0 +1,823 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf8"/>
+		<title></title>
+		<style type="text/css">
+			:root {
+				--header-color: darkslateblue;
+				--border-color: grey;
+			}
+
+			:root[data-theme="light"] {
+				--body-bg-color: unset;
+				--header-bg-color: lightblue;
+				--section-color: darkslateblue;
+				--cell-color: #000011;
+				--even-row-color: #EEEEEE;
+				--title-color: #777777;
+				--unit-color: #777777;
+			}
+
+			:root[data-theme="dark"] {
+				--body-bg-color: #212327;
+				--header-bg-color: #7eb6d3;
+				--section-color: #a3c8db;
+				--cell-color: #DDDDDD;
+				--even-row-color: #555555;
+				--title-color: #AAAAAA;
+				--unit-color: #AAAAAA;
+			}
+
+			@media(prefers-color-scheme: dark) {}
+
+			html {
+				box-sizing: border-box;
+			}
+
+			*, *:before, *:after {
+				box-sizing: inherit;
+			}
+
+			body {
+				color: var(--cell-color);
+				background-color: var(--body-bg-color);
+			}
+
+			.container {
+				margin: 5% 3%;
+			}
+
+			@media (min-width: 48em) {
+				.container {
+					margin: 2%;
+				}
+			}
+
+			@media (min-width: 75em) {
+				.container {
+					margin: 2em auto;
+					max-width: 100em;
+				}
+			}
+
+			.responsive-table {
+				width: 100%;
+				margin-bottom: 1.5em;
+				border-spacing: 0;
+			}
+
+			@media (min-width: 48em) {
+				.responsive-table {
+					font-size: 0.9em;
+				}
+			}
+
+			@media (min-width: 62em) {
+				.responsive-table {
+					font-size: 1em;
+				}
+			}
+
+			.responsive-table thead {
+				position: absolute;
+				clip: rect(1px 1px 1px 1px);
+				/* IE6, IE7 */
+				padding: 0;
+				border: 0;
+				height: 1px;
+				width: 1px;
+				overflow: hidden;
+			}
+
+			@media (min-width: 48em) {
+				.responsive-table thead {
+					position: relative;
+					clip: auto;
+					height: auto;
+					width: auto;
+					overflow: auto;
+				}
+			}
+
+			.responsive-table thead th {
+				position: sticky;
+				top: 0;
+				z-index: 1;
+				background-color: var(--header-bg-color);
+				color: var(--header-color);
+				border: 1px solid var(--border-color);
+				border-left-color: black;
+				border-right-width: 0;
+				font-weight: bold;
+				text-align: center;
+			}
+
+			.responsive-table thead th:first-of-type {
+				border-left-color: var(--border-color);
+			}
+
+			.responsive-table thead th:last-of-type {
+				border-right-width: 1px;
+			}
+
+			.responsive-table tbody, .responsive-table tr, .responsive-table th {
+				display: block;
+				padding: 0;
+				white-space: normal;
+			}
+
+			.responsive-table td {
+				display: flex;
+				padding: 0;
+				white-space: normal;
+			}
+
+			@media (min-width: 48em) {
+				.responsive-table tr {
+					display: table-row;
+				}
+			}
+
+			.responsive-table th, .responsive-table td {
+				padding: 0.5em;
+				vertical-align: middle;
+			}
+
+			@media (min-width: 48em) {
+				.responsive-table th, .responsive-table td {
+					display: table-cell;
+					padding: 0.5em;
+				}
+			}
+
+			.responsive-table caption {
+				margin-bottom: 3px;
+				font-weight: bold;
+				text-align: left;
+			}
+
+			.responsive-table tfoot {
+				margin-top: 3px;
+			}
+
+			@media (min-width: 48em) {
+				.responsive-table tbody {
+					display: table-row-group;
+				}
+			}
+
+			.responsive-table tbody tr {
+				margin-bottom: 1em;
+			}
+
+			@media (min-width: 48em) {
+				.responsive-table tbody tr {
+					display: table-row;
+					border-width: 1px;
+				}
+			}
+
+			.responsive-table tbody tr:last-of-type {
+				margin-bottom: 0;
+			}
+
+			@media (min-width: 48em) {
+				.responsive-table tbody tr:nth-of-type(even) {
+					background-color: var(--even-row-color);
+				}
+			}
+
+			.responsive-table tbody th[scope="row"] {
+				background-color: var(--header-bg-color);
+				color: var(--header-color);
+			}
+
+			@media (min-width: 30em) {
+				.responsive-table tbody th[scope="row"] {
+					border-left: 1px solid var(--border-color);
+					border-bottom: 1px solid var(--border-color);
+				}
+			}
+
+			@media (min-width: 48em) {
+				.responsive-table tbody th[scope="row"] {
+					background-color: transparent;
+					color: var(--cell-color);
+				}
+			}
+
+			.responsive-table tbody td {
+				justify-content: right;
+			}
+
+			.responsive-table tbody td:nth-child(odd) {
+				background-color: var(--even-row-color);
+			}
+
+			@media (min-width: 48em) {
+				.responsive-table tbody td {
+					border-left: 1px solid var(--border-color);
+					border-bottom: 1px solid var(--border-color);
+					text-align: right;
+				}
+
+				.responsive-table tbody td:nth-child(odd) {
+					background-color: inherit;
+				}
+			}
+
+			@media (min-width: 48em) {
+				.responsive-table tbody td:last-of-type {
+					border-right: 1px solid var(--border-color);
+				}
+			}
+
+			.responsive-table tbody td[data-type="text"] {
+				text-align: left;
+			}
+
+			.responsive-table tbody td[data-title]:before {
+				content: attr(data-title);
+				margin-right: auto;
+				font-size: 0.8em;
+				color: var(--title-color);
+			}
+
+			@media (min-width: 30em) {
+				.responsive-table tbody td[data-title]:before {
+					font-size: 0.9em;
+				}
+			}
+
+			@media (min-width: 48em) {
+				.responsive-table tbody td[data-title]:before {
+					content: none;
+				}
+			}
+
+			tr.error {
+				background-color: lightcoral !important;
+			}
+			tr.error td[data-field="amount"] {
+				background-color: tomato;
+			}
+
+			*[data-unit]:not(:empty):after {
+				content:"\A0"attr(data-unit);
+				font-size: 0.8em;
+				text-align: left;
+				font-style: italic;
+				color: var(--unit-color);
+			}
+
+			td[data-field="partial"] {
+				//background-image: url("https://img.icons8.com/?size=100&id=OdTzdyk9vCvs&format=png&color=23BB3C");
+				background-image: url("data:image/png;base64,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");
+				background-repeat: no-repeat;
+				background-position: right;
+				background-size: 30px 30px;
+				text-align: center !important;
+			}
+			td[data-field="partial"].partial {
+				//background-image: url("https://img.icons8.com/?size=100&id=OdTzdyk9vCvs&format=png&color=FCC419");
+				background-image: url("data:image/png;base64,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");
+			}
+
+			@media (min-width: 48em) {
+				td[data-field="partial"] {
+					background-position: center;
+				}
+			}
+
+			#statContainer {
+				display: grid;
+				grid-template-rows: repeat(9, auto);
+				gap: 1px;
+				grid-auto-flow: column;
+				margin-bottom: 50px;
+			}
+
+			#statContainer > * {
+				display: flex;
+				padding: 0.5em;
+				text-align: right;
+				justify-content: right;
+				align-items: center;
+			}
+
+			#statContainer .header {
+				display: flex;
+				background-color: var(--header-bg-color);
+				color: var(--header-color);
+				font-weight: bold;
+				text-align: center;
+				justify-content: center;
+				white-space: nowrap;
+			}
+
+			#statContainer .header:nth-child(2),
+			#statContainer .header:nth-child(10) {
+				border-top-left-radius: 10px;
+			}
+			#statContainer .header:nth-child(9) {
+				border-bottom-left-radius: 10px;
+			}
+			#statContainer .header:nth-last-child(9) {
+				border-top-right-radius: 10px;
+			}
+			#statContainer > *:nth-last-child(1) {
+				border-bottom-right-radius: 10px;
+			}
+
+			#statContainer > *:not(.header):nth-child(9n),
+			#statContainer > *:not(.header):nth-child(9n+3),
+			#statContainer > *:not(.header):nth-child(9n+5),
+			#statContainer > *:not(.header):nth-child(9n+7) {
+				background-color: var(--even-row-color);
+			}
+
+			h1 {
+				text-align: center;
+				color: var(--section-color);
+			}
+
+			/* BUTTON *//* From Uiverse.io by vinodjangid07 */
+			.bookmarkBtn {
+				display: flex;
+				padding: 0 4px;
+				font-weight: bold;
+				width: 140px;
+				height: 40px;
+				border-radius: 40px;
+				border: 1px solid rgba(255, 255, 255, 0.349);
+				background-color: rgb(10, 195, 21);
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				transition-duration: 0.3s;
+				overflow: hidden;
+			}
+
+			.bookmarkBtn .IconContainer {
+				display: flex;
+				font-size: 20px;
+				line-height: 20px;
+				width: 31px;
+				height: 31px;
+				background: linear-gradient(to bottom, rgb(16, 131, 166), rgb(7, 71, 86));
+				color: white;
+				border-radius: 50px;
+				align-items: center;
+				justify-content: center;
+				overflow: hidden;
+				z-index: 2;
+				transition-duration: 0.3s;
+			}
+
+			.bookmarkBtn .icon {
+				border-radius: 1px;
+			}
+
+			.bookmarkBtn .text {
+				display: flex;
+				font-size: 12.5px;
+				height: 100%;
+				flex-grow: 1;
+				align-items: center;
+				justify-content: center;
+				color: darkslateblue;
+				z-index: 1;
+				transition-duration: 0.3s;
+				white-space: nowrap;
+			}
+
+			.bookmarkBtn:hover .IconContainer {
+				width: 100%;
+				transition-duration: 0.3s;
+			}
+
+			.bookmarkBtn:hover .text {
+				transform: translate(10px);
+				width: 0;
+				font-size: 0;
+				transition-duration: 0.1s;
+			}
+
+			.bookmarkBtn:active {
+				transform: scale(0.95);
+				transition-duration: 0.3s;
+			}
+		</style>
+		<!--
+		<script type="text/javascript" src="/utils/javascript/Loader.js" data-load="4"></script>
+		<script type="text/javascript" data-drive="/I:">if (typeof _jsUtilsLoader === "undefined") document.write(document.querySelector("script[data-load]")?.outerHTML.replace(/(?<=src=(["']))(?:\/\w:(?=\/))?([^\1]+)/, document.currentScript.dataset.drive + "$2"));</script>
+		-->
+		<script type="text/javascript">
+			(() => {
+				const selectMode = (e) => document.documentElement.dataset.theme = e.matches ? "dark" : "light";
+				const matchDarkScheme = window.matchMedia?.("(prefers-color-scheme: dark)");
+				selectMode(matchDarkScheme);
+				matchDarkScheme?.addEventListener("change", selectMode);
+
+				const preferedMode = new URLSearchParams(window.location.search).get("theme");
+				if (["dark", "light"].includes(preferedMode)) {
+					selectMode({matches: "dark" === preferedMode});
+				}
+			})();
+		</script>
+		<script type="text/javascript" src="Carburant.json"></script>
+		<script type="text/javascript">
+			const savedFields = ["date", "km", "price", "quantity", "amount", "location", "partial", "comment"];
+			const filledRowFields = savedFields.slice(0, savedFields.indexOf("amount") + 1);
+			const emptyRowFields = filledRowFields.slice(1);
+			const mapping = {};
+
+			const dayInMs = 1000 * 60 * 60 * 24, daysInMonth = 30.4375, daysInYear = 365.25;
+
+			let headers, lastEditableHeader;
+			const dateFormat = (d) => (d ?? new Date()).toLocaleDateString("fr-FR");
+			const zeroDigitFormat = new Intl.NumberFormat("fr-FR", {maximumFractionDigits: 0});
+			const twoDigitFormat = new Intl.NumberFormat("fr-FR", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+			const threeDigitFormat = new Intl.NumberFormat("fr-FR", {minimumFractionDigits: 3, maximumFractionDigits: 3});
+			const format = {
+				of(rowData, field) {
+					return this[field]?.(rowData[field]) ?? rowData[field] ?? "";
+				},
+				km: (fieldData) => apply(zeroDigitFormat.format, fieldData),
+				price: (fieldData) => apply(threeDigitFormat.format, fieldData),
+				quantity: (fieldData) => apply(twoDigitFormat.format, fieldData),
+				amount: (fieldData) => apply(twoDigitFormat.format, fieldData),
+				distance: (fieldData) => apply(zeroDigitFormat.format, fieldData),
+				consumption: (fieldData) => apply(twoDigitFormat.format, fieldData),
+				duration: (fieldData) => apply(zeroDigitFormat.format, fieldData),
+				partial: () => "",
+			};
+
+			const attributes = {
+				of(field, rowData) {
+					const atts = [];
+					atts.push(`id="${rowFieldId(rowData.id, field)}"`);
+					if (savedFields.includes(field)) {
+						atts.push('contenteditable="true"');
+					}
+					this[field]?.(atts, rowData?.[field]);
+					return atts.join(' ');
+				},
+				km: (atts) => atts.push('data-unit="km"'),
+				price: (atts) => atts.push('data-unit="€"'),
+				quantity: (atts) => atts.push('data-unit="L"'),
+				amount: (atts) => atts.push('data-unit="€"'),
+				location: (atts) => atts.push('data-type="text"'),
+				distance: (atts) => atts.push('data-unit="km"'),
+				consumption: (atts) => atts.push('data-unit="L/100km"'),
+				duration: (atts) => atts.push('data-unit="j"'),
+				partial: (atts, fieldData) => { if (fieldData) { atts.push('class="partial"') } }
+			};
+
+			function apply(func, ...args) {
+				return args.some(a => a === undefined) ? undefined : func.apply(null, args);
+			}
+
+			function dateToMS(d) {
+				return apply(Date.UTC, ...(d?.split("/").reverse().map((n, i) => Number(n) - (i === 1 ? 1 : 0)) ?? [undefined]));
+			}
+
+			function getYear(d) {
+				return d?.substr(-4);
+			}
+
+			function autocompleteDate(date, prevRowDate) {
+				const refDate = prevRowDate ? new Date(dateToMS(prevRowDate)) : new Date();
+				let [_, d, m, y] = date.match(/^\s*(\d{1,2})\D?(\d{1,2})?\D?(\d{2}|\d{4})?\s*$/);
+				const refD = refDate[`get${prevRowDate?"UTC":""}Date`](), refM = refDate[`get${prevRowDate?"UTC":""}Month`](), refY = refDate[`get${prevRowDate?"UTC":""}FullYear`]();
+				const dir = prevRowDate ? -1 : 1;
+
+				d = Number(d);
+				if (prevRowDate) {
+					m = m ? Number(m) - 1 : (12 + refM + (d <= refD ? 1 : 0)) % 12;
+					y = y ? Number(y) : refY + (m < refM ? 1 : (m === refM && d < refD) ? 1 : 0);
+				} else {
+					m = m ? Number(m) - 1 : (12 + refM - (d > refD ? 1 : 0)) % 12;
+					y = y ? Number(y) : refY - (m > refM ? 1 : (m === refM && d > refD) ? 1 : 0);
+				}
+				y = y < 100 ? Math.trunc(new Date().getFullYear() / 100) * 100 + y : y;
+
+				return dateFormat(new Date(y, m, d));
+			}
+
+			function isEmptyRowData(rowData) {
+				return emptyRowFields.every(f => !rowData[f]);
+			}
+
+			function isFilledRowData(rowData) {
+				return filledRowFields.every(f => rowData[f]);
+			}
+			
+			function saveDataArray() {
+				const sanitized = dataArray.filter(d => !isEmptyRowData(d)).map(rowData => savedFields.reduce((o, f) => (o[f] = rowData[f], o), {}));
+				console.log(JSON.stringify(sanitized, undefined, "\t").replace(/[\r\n]+\t(?:\t+|(?=}))/g,""));
+			}
+
+			function getField(elem) {
+				return elem.getAttribute("data-field");
+			}
+
+			function getRowData(elemId) {
+				return mapping[elemId.replace(/^(\w\d+)(?:\D.*)?$/, "$1")];
+			}
+
+			function adjacentRowFieldId(currentId, rowIncrement) {
+				return currentId.replace(/(\w)(\d+)/, (m, l, n) => l + (Number(n) + rowIncrement));
+			}
+
+			function adjacentRowData(currentRowData, rowIncrement) {
+				return mapping[currentRowData.id.replace(/(\w)(\d+)/, (m, l, n) => l + (Number(n) + rowIncrement))];
+			}
+
+			function rowId(index) {
+				return "r" + index;
+			}
+
+			function rowFieldId(rowId, field) {
+				return rowId + "-" + field;
+			}
+
+			function expandData(dataArray, rowData, i) {
+				const update = rowData.id;
+
+				rowData.dateInMs = dateToMS(rowData.date);
+				rowData.distance = apply((current, prev) => current - prev, rowData.km, dataArray[i-1]?.km);
+				rowData.duration = apply((current, prev) => (current - prev) / dayInMs, rowData.dateInMs, dataArray[i-1]?.dateInMs);
+
+				rowData.consumption = undefined;
+				if (!rowData.partial) {
+					let start = dataArray[i-1]?.km, quantity = rowData.quantity, j = i;
+					while(!isNaN(quantity) && dataArray[--j]?.partial) {
+						start = dataArray[j-1]?.km;
+						quantity += dataArray[j].quantity;
+					}
+					rowData.consumption = apply((q, currD, prevD) => q * 100 / (currD - prevD), quantity || undefined, rowData.km, start);
+				}
+
+				rowData.error = apply((p, q, a) => {
+						const r = Math.round(p*q*100);
+						return (r === Math.round(a*100)) ? undefined : "attendu : " + twoDigitFormat.format(r/100) + " €";
+					},
+					rowData.price, rowData.quantity, rowData.amount
+				);
+
+				if (update) {
+					const dynamicFields = ["distance", "duration", "consumption"];
+					const rowElem = document.getElementById(rowData.id);
+					if (rowData.error) {
+						rowElem?.classList.add("error");
+						rowElem?.setAttribute("title", rowData.error);
+					}
+					rowElem?.querySelectorAll(dynamicFields.map(f => "#"+rowFieldId(rowData.id, f)).join(",")).forEach(elem => {
+						elem.textContent = format.of(rowData, getField(elem));
+					});
+				}
+			}
+
+			function createRow(headers, rowData, index) {
+				rowData.id = rowId(index);
+				rowData.index = index;
+				mapping[rowData.id] = rowData;
+				return `<tr id=${rowId(index)} ${rowData.error ? `class="error" title="${rowData.error}"` : ''}>`
+					+ headers.map((h, i) => `<${i === 0 ? 'th scope="row"' : 'td'} data-title="${h.title}" data-field="${h.field}" ${attributes.of(h.field, rowData)}>${format.of(rowData, h.field)}</${i === 0 ? 'th' : 'td'}>`).join('')
+					+ "</tr>";
+			}
+
+			function createTable() {
+				headers = [...document.querySelectorAll("#dataTable thead th")].map(h => ({title: h.textContent, field: getField(h)}));
+				lastEditableHeader = headers.map(h => h.field).findLast(f => savedFields.includes(f));
+
+				const button = '<button class="bookmarkBtn" onclick="addRow()"><span class="IconContainer">+</span><p class="text">Nouvelle ligne</p></button>';
+				[...document.querySelectorAll("#dataTable caption, #dataTable tfoot td")].forEach(e => {
+					e.setAttribute("colspan", headers.length);
+					e.insertAdjacentHTML('beforeend', button);
+				});
+
+				const tbody = document.querySelector("#dataTable tbody");
+				dataArray.forEach((rowData, i) => {
+					expandData(dataArray, rowData, i);
+					tbody.insertAdjacentHTML('beforeend', createRow(headers, rowData, i));
+				});
+				[...document.querySelectorAll('*[contenteditable="true"]')].forEach(elem => addEventListeners(elem));
+			}
+
+			function addRow() {
+				const rowData = {};
+				rowData.date = dateFormat();
+				const tbody = document.querySelector("#dataTable tbody");
+				tbody.insertAdjacentHTML('beforeend', createRow(headers, rowData, dataArray.push(rowData)-1));
+				[...document.querySelectorAll('#dataTable tr:last-of-type *[contenteditable="true"]')].forEach(elem => addEventListeners(elem));
+				document.getElementById(rowFieldId(rowData.id, "date"))?.focus();
+			}
+
+			function removeRow(rowData) {
+				const elem = document.getElementById(rowData.id);
+				elem?.parentElement.removeChild(elem);
+				dataArray.splice(rowData.index, 1);
+				delete mapping[rowData.id];
+			}
+
+			const eventListeners = {
+				onfocus: (event) => {
+					cellData(event.target);
+					window.getSelection().selectAllChildren(event.target);
+				},
+				onblur: (event) => {
+					cellData(event.target, event.target.textContent);
+				},
+				onkeydown: (event) => {
+					const elem = event.target;
+					const rowData = getRowData(elem.id);
+					const field = getField(elem);
+					const partialElem = field === "partial";
+					const isLast = dataArray.length - 1 === rowData.index;
+					if (isLast && !event.defaultPrevented && (("ArrowDown" === event.key) || ((field === lastEditableHeader) && ("Tab" === event.key)))) {
+						event.preventDefault();
+						addRow();
+					} else if (!event.defaultPrevented && (["Enter", "Escape", "ArrowDown", "ArrowUp"].includes(event.key) || ((event.code === "Space") && partialElem))) {
+						event.preventDefault();
+						if (["ArrowDown", "ArrowUp"].includes(event.key)) {
+							const target = document.getElementById(adjacentRowFieldId(elem.id, event.key === "ArrowUp" ? -1 : 1));
+							target?.focus();
+						} else {
+							if (event.code === "Space") {
+								elem.classList.toggle("partial");
+							} else if (event.key === "Escape") {
+								if (partialElem) {
+									elem.classList[elem.oldValue ? "add" : "remove"]("partial");
+								} else {
+									elem.textContent = elem.oldValue;
+									if (isEmptyRowData(rowData)) {
+										removeRow(rowData);
+									}
+								}
+							}
+							elem.blur();
+							window.getSelection().removeAllRanges();
+						}
+					}
+				},
+				onmousedown: (event) => {
+					const elem = event.target;
+					if (elem.editing && getField(elem) === "partial") {
+						event.preventDefault();
+						elem.classList.toggle("partial");
+						elem.blur();
+						window.getSelection().removeAllRanges();
+					}
+				},
+			};
+			function addEventListeners(elem) {
+				Object.entries(eventListeners).forEach(([ev, func]) => elem[ev] = func);
+			}
+
+			function cellData(elem, newValue) {
+				const rowData = getRowData(elem.id);
+				const field = getField(elem);
+				let curVal = rowData[field];
+				elem.oldValue = curVal;
+				elem.editing = true;
+
+				if (newValue !== undefined) {
+					newValue = newValue === '' ? undefined : newValue;
+					const numericFields = ["km", "price", "quantity", "amount"];
+					if (field === "partial") {
+						newValue = elem.classList.contains("partial") ? true : undefined;
+					} else if (numericFields.includes(field)) {
+						newValue = isNaN(Number(newValue)) ? curVal : Number(newValue);
+					} else if (field === "date") {
+						newValue = autocompleteDate(newValue, adjacentRowData(rowData, -1)?.date);
+					}
+					if (newValue !== curVal) {
+						rowData[field] = newValue;
+						processChanges(rowData, field === "partial");
+					}
+					elem.textContent = format.of(rowData, field);
+					elem.editing = false;
+				} else if (field !== "partial") {
+					elem.textContent = curVal;
+				}
+			}
+
+			function processChanges(rowData, partialChanged) {
+				if (partialChanged) {
+					let targetRowData = rowData;
+					do {
+						targetRowData = adjacentRowData(targetRowData, 1);
+						processChanges(targetRowData);
+					} while(targetRowData?.partial);
+				}
+				if (rowData) {
+					expandData(dataArray, rowData, rowData.index);
+					if (!rowData.partial) {
+						generateStats();
+					}
+				}
+			}
+
+			const stats = {
+				"span": { calc: ({year}) => year || "global" },
+				"consommation": {
+					unit: "L/100km",
+					calc: ({list, kms}) => twoDigitFormat.format(list.reduce((sum, {quantity}, i) => sum + (i === 0 ? 0 : quantity), 0) * 100 / kms)
+				},
+				"périodicité": {
+					unit: "j",
+					calc: ({list}) => zeroDigitFormat.format(list.reduce((sum, {duration}, i) => sum + (i === 0 ? 0 : duration), 0) / (list.length - 1))
+				},
+				"périodicité médiane": {
+					unit: "j",
+					calc: ({list}) => zeroDigitFormat.format([...list].sort(({duration:d1}, {duration:d2}) => d1 - d2)[Math.trunc(list.length/2)]?.duration)
+				},
+				"trajet annuel": {
+					unit: "km/an",
+					calc: ({kms, days, year}) => zeroDigitFormat.format(year ? kms : kms * daysInYear / days)
+				},
+				"trajet mensuel": {
+					unit: "km/mois",
+					calc: ({kms, days}) => zeroDigitFormat.format(kms * daysInMonth / days)
+				},
+				"coût annuel": {
+					unit: "€/an",
+					calc: ({list, cost, days, year}) => twoDigitFormat.format(year ? cost + (getYear(list[0].date) === year ? list[0].amount : 0) : cost * daysInYear / days)
+				},
+				"coût mensuel": {
+					unit: "€/mois",
+					calc: ({cost, days}) => twoDigitFormat.format(cost * daysInMonth / days)
+				},
+				"coût aux 100km": {
+					unit: "€/100km",
+					calc: ({cost, kms}) => twoDigitFormat.format(cost * 100 / kms)
+				},
+			};
+
+			function applyStats(statCont, year) {
+				const list = dataArray.filter((rowData, i) => isFilledRowData(rowData) && (!year || getYear(rowData.date) === year || getYear(dataArray[i+1]?.date) === year));
+				if (list.length < 2) {
+					return;
+				}
+				const kmList = list.map(rowData => rowData.km);
+				const dateList = list.map(rowData => rowData.dateInMs);
+				const statData = {
+					list: list,
+					year: year,
+					kms: Math.max(...kmList) - Math.min(...kmList),
+					days: (Math.max(...dateList) - Math.min(...dateList)) / dayInMs,
+					cost: list.reduce((sum, {amount}, i) => sum + (i === 0 ? 0 : amount), 0),
+				}
+				Object.values(stats).forEach(({unit, calc}, i) => statContainer.insertAdjacentHTML('beforeend', `<div class="${i === 0 ? 'header' : ''}" data-unit="${unit??''}">${calc?.(statData)}</div>`));
+			}
+
+			function generateStats() {
+				const statCont = document.getElementById("statContainer");
+				while (statCont?.firstChild) {
+					statCont.removeChild(statCont.lastChild);
+				}
+				const years = Object.keys( dataArray.reduce((rowData, {date}) => (rowData[getYear(date)] = true, rowData), {"": true}) );
+				Object.keys(stats).forEach((header, i) => statContainer.insertAdjacentHTML('beforeend', `<div class="${i === 0 ? '' : 'header'}">${i === 0 ? "" : header}</div>`));
+				years.sort();
+				years.forEach(year => applyStats(statCont, year));
+			}
+
+			function populate() {
+				createTable();
+				generateStats();
+			}
+		</script>
+	</head>
+	<body onload="populate()">
+		<div class="container">
+			<h1>Statistiques</h1>
+			<div id="statContainer"></div>
+
+			<h1>Consommation de carburant</h1>
+			<table id="dataTable" class="responsive-table">
+				<caption></caption>
+				<thead>
+					<tr>
+						<th scope="col" data-field="date">Date</th>
+						<th scope="col" data-field="km">Kilométrage</th>
+						<th scope="col" data-field="price">Prix au litre</th>
+						<th scope="col" data-field="quantity">Quantité</th>
+						<th scope="col" data-field="amount">Montant</th>
+						<th scope="col" data-field="location">Provenance</th>
+						<th scope="col" data-field="distance">Distance</th>
+						<th scope="col" data-field="consumption">Consommation</th>
+						<th scope="col" data-field="duration">Délai</th>
+						<th scope="col" data-field="partial">Plein</th>
+						<th scope="col" data-field="comment">Commentaire</th>
+					</tr>
+				</thead>
+				<tfoot><tr><td></td></tr></tfoot>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

@@ -2,11 +2,14 @@
 <html>
 	<head>
 		<meta charset="utf8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Conso Carburant</title>
 		<style type="text/css">
 			:root {
 				--header-color: darkslateblue;
 				--border-color: grey;
+				--container-width: 1500px;
+				--remove-row-width: 30px;
 			}
 
 			:root[data-theme="light"] {
@@ -33,6 +36,12 @@
 
 			html {
 				box-sizing: border-box;
+				/*
+				-moz-text-size-adjust: none;
+				-webkit-text-size-adjust: none;
+				-ms-text-size-adjust: none;
+				text-size-adjust: none;
+				*/
 			}
 
 			*, *:before, *:after {
@@ -42,41 +51,19 @@
 			body {
 				color: var(--cell-color);
 				background-color: var(--body-bg-color);
+				font-size: 10pt;
+				padding: 0 var(--remove-row-width);
 			}
 
 			.container {
-				margin: 5% 3%;
-			}
-
-			@media (min-width: 48em) {
-				.container {
-					margin: 2%;
-				}
-			}
-
-			@media (min-width: 75em) {
-				.container {
-					margin: 2em auto;
-					max-width: 100em;
-				}
+				margin: 2em auto;
+				max-width: var(--container-width);
 			}
 
 			.responsive-table {
 				width: 100%;
 				margin-bottom: 1.5em;
 				border-spacing: 0;
-			}
-
-			@media (min-width: 48em) {
-				.responsive-table {
-					font-size: 0.9em;
-				}
-			}
-
-			@media (min-width: 62em) {
-				.responsive-table {
-					font-size: 1em;
-				}
 			}
 
 			.responsive-table thead {
@@ -90,7 +77,7 @@
 				overflow: hidden;
 			}
 
-			@media (min-width: 48em) {
+			@media screen and (min-width: 55em) {
 				.responsive-table thead {
 					position: relative;
 					clip: auto;
@@ -133,7 +120,7 @@
 				white-space: normal;
 			}
 
-			@media (min-width: 48em) {
+			@media screen and (min-width: 55em) {
 				.responsive-table tr {
 					display: table-row;
 				}
@@ -144,7 +131,7 @@
 				vertical-align: middle;
 			}
 
-			@media (min-width: 48em) {
+			@media screen and (min-width: 55em) {
 				.responsive-table th, .responsive-table td {
 					display: table-cell;
 					padding: 0.5em;
@@ -161,7 +148,7 @@
 				gap: 10px;
 			}
 
-			@media (min-width: 48em) {
+			@media screen and (min-width: 55em) {
 				.responsive-table tbody {
 					display: table-row-group;
 				}
@@ -171,7 +158,7 @@
 				margin-bottom: 1em;
 			}
 
-			@media (min-width: 48em) {
+			@media screen and (min-width: 55em) {
 				.responsive-table tbody tr {
 					display: table-row;
 					border-width: 1px;
@@ -182,7 +169,7 @@
 				margin-bottom: 0;
 			}
 
-			@media (min-width: 48em) {
+			@media screen and (min-width: 55em) {
 				.responsive-table tbody tr:nth-of-type(even) {
 					background-color: var(--striped-row-color);
 				}
@@ -193,14 +180,14 @@
 				color: var(--header-color);
 			}
 
-			@media (min-width: 30em) {
+			@media screen and (min-width: 256px) {
 				.responsive-table tbody th[scope="row"] {
 					border-left: 1px solid var(--border-color);
 					border-bottom: 1px solid var(--border-color);
 				}
 			}
 
-			@media (min-width: 48em) {
+			@media screen and (min-width: 55em) {
 				.responsive-table tbody th[scope="row"] {
 					background-color: transparent;
 					color: var(--cell-color);
@@ -215,7 +202,7 @@
 				background-color: var(--striped-row-color);
 			}
 
-			@media (min-width: 48em) {
+			@media screen and (min-width: 55em) {
 				.responsive-table tbody td {
 					border-left: 1px solid var(--border-color);
 					border-bottom: 1px solid var(--border-color);
@@ -227,7 +214,7 @@
 				}
 			}
 
-			@media (min-width: 48em) {
+			@media screen and (min-width: 55em) {
 				.responsive-table tbody td:last-of-type {
 					border-right: 1px solid var(--border-color);
 				}
@@ -240,17 +227,17 @@
 			.responsive-table tbody td[data-title]:before {
 				content: attr(data-title);
 				margin-right: auto;
-				font-size: 0.8em;
+				font-size: 0.8rem;
 				color: var(--title-color);
 			}
 
-			@media (min-width: 30em) {
+			@media screen and (min-width: 256px) {
 				.responsive-table tbody td[data-title]:before {
-					font-size: 0.9em;
+					font-size: 0.9rem;
 				}
 			}
 
-			@media (min-width: 48em) {
+			@media screen and (min-width: 55em) {
 				.responsive-table tbody td[data-title]:before {
 					content: none;
 				}
@@ -271,8 +258,8 @@
 				top: 0;
 				display: flex;
 				height: 100%;
-				left: -31px;
-				width: 30px;
+				left: calc(-1 * var(--remove-row-width) - 1px);
+				width: var(--remove-row-width);
 				justify-content: center;
 				align-items: center;
 				background-color: #d54242;
@@ -285,7 +272,7 @@
 			}
 			.responsive-table tr:has(.editing) .removeRow:after {
 				left: unset;
-				right: -31px;
+				right: calc(-1 * var(--remove-row-width) - 1px);
 				border-radius: 3px 18px 18px 3px;
 			}
 
@@ -309,7 +296,7 @@
 				background-image: url("data:image/png;base64,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");
 			}
 
-			@media (min-width: 48em) {
+			@media screen and (min-width: 55em) {
 				.responsive-table td[data-field="partial"] {
 					background-position: center;
 				}
@@ -317,7 +304,7 @@
 
 			*[data-unit]:not(:empty):after {
 				content:"\A0"attr(data-unit);
-				font-size: 0.8em;
+				font-size: 0.8rem;
 				text-align: left;
 				font-style: italic;
 				color: var(--unit-color);
@@ -325,12 +312,15 @@
 
 			#statContainer {
 				display: grid;
+				position: relative;
 				grid-template-rows: repeat(9, auto);
 				grid-template-columns: min-content;
 				grid-auto-columns: minmax(max-content, 15em);
 				gap: 1px;
 				grid-auto-flow: column;
 				margin-bottom: 50px;
+				padding-bottom: 5px;
+				overflow-x: auto;
 			}
 
 			#statContainer > * {
@@ -341,6 +331,10 @@
 				align-items: center;
 			}
 
+			#statContainer *:first-child {
+				background-color: var(--body-bg-color);
+			}
+			
 			#statContainer .header {
 				display: flex;
 				background-color: var(--header-bg-color);
@@ -372,6 +366,11 @@
 				background-color: var(--striped-row-color);
 			}
 
+			#statContainer > *:nth-child(-n+9) {
+				position: sticky;
+				left: 0;
+				z-index: 1;
+			}
 			#statContainer > *:not(.header):nth-last-child(-n+8) {
 				border-right: solid var(--striped-row-color) 1px;
 			}
@@ -415,6 +414,10 @@
 			.bookmarkBtn:not(:has(.text)) .IconContainer {
 				width: 100%;
 				height: 100%;
+			}
+
+			.bookmarkBtn:not(:has(.text)):hover {
+				filter: brightness(1.25);
 			}
 
 			.bookmarkBtn .IconContainer {
@@ -535,11 +538,16 @@
 			
 			const actions = {
 				index: 0,
+				savedIndex: 0,
 				history: [],
 				addAction(action) {
 					this.history.splice(this.index++, this.history.length + 1 - this.index, action);
 					action.toString = () => JSON.stringify(action);
+					if (this.index <= this.savedIndex) {
+						this.savedIndex = null;
+					}
 					this.updateButtons();
+					console.log(`index: ${this.index}, savedIndex: ${this.savedIndex}, unsavedState: ${this.unsavedState()}`);
 					console.log(`action added : '${action}' at index ${this.index}, history : ['${this.history.join("', '")}']`);
 				},
 				undo() {
@@ -572,10 +580,16 @@
 				},
 				save() {
 					console.log("TO BE IMPLEMENTED");
+					this.savedIndex = this.index;
+					this.updateButtons();
+				},
+				unsavedState() {
+					return (this.savedIndex === null) || (this.savedIndex !== this.index);
 				},
 				updateButtons() {
 					[...document.querySelectorAll(".undo")].forEach(e => e.disabled = this.index === 0);
 					[...document.querySelectorAll(".redo")].forEach(e => e.disabled = this.index === this.history.length);
+					[...document.querySelectorAll(".save")].forEach(e => e.disabled = !this.unsavedState());
 				},
 				addEventListeners() {
 					window.addEventListener("keydown", (event) => {
@@ -777,7 +791,7 @@
 			function addRemoveRowElems() {
 				const containers = document.querySelectorAll(":nth-child(1 of .responsive-table tbody td:not([contenteditable])):not(:has(.removeRow))");
 				[...containers].forEach(e => {
-					const attrs = [...e.attributes].map(({name, value}) => (e.removeAttribute(name), `${name}="${value}"`)).join(" ");
+					const attrs = [...e.attributes].filter(({name}) => name !== "data-title").map(({name, value}) => (e.removeAttribute(name), `${name}="${value}"`)).join(" ");
 					e.insertAdjacentHTML('beforeend', `<span ${attrs}>${e.textContent}</span>`);
 					e.insertAdjacentHTML('beforeend', `<span class="removeRow" onmousedown="actions.removeRow(getRowData(this.parentElement.parentElement.id))" title="Supprimer la ligne"></span>`);
 					e.firstChild.data = "";
@@ -800,7 +814,7 @@
 				const addLineButton = '<button class="bookmarkBtn" onclick="actions.addRow()"><span class="IconContainer">+</span><p class="text">Nouvelle ligne</p></button>';
 				const undoButton = '<button disabled class="bookmarkBtn undo" title="Annuler" onclick="actions.undo()"><span class="IconContainer"><svg viewBox="0 0 24 24" height="18" width="18" fill="none" stroke="#ffffff" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><g stroke-linecap="round" stroke-linejoin="round"></g><g> <g> <path d="M10 8H5V3M5.29102 16.3569C6.22284 17.7918 7.59014 18.8902 9.19218 19.4907C10.7942 20.0913 12.547 20.1624 14.1925 19.6937C15.8379 19.225 17.2893 18.2413 18.3344 16.8867C19.3795 15.5321 19.963 13.878 19.9989 12.1675C20.0347 10.4569 19.5211 8.78001 18.5337 7.38281C17.5462 5.98561 16.1366 4.942 14.5122 4.40479C12.8878 3.86757 11.1341 3.86499 9.5083 4.39795C7.88252 4.93091 6.47059 5.97095 5.47949 7.36556" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg></span></button>';
 				const redoButton = '<button disabled class="bookmarkBtn redo" title="Répéter" onclick="actions.redo()"><span class="IconContainer"><svg viewBox="0 0 24 24" height="18" width="18" fill="none" stroke="#ffffff" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><g stroke-linecap="round" stroke-linejoin="round"></g><g> <g> <path d="M13.9998 8H18.9998V3M18.7091 16.3569C17.7772 17.7918 16.4099 18.8902 14.8079 19.4907C13.2059 20.0913 11.4534 20.1624 9.80791 19.6937C8.16246 19.225 6.71091 18.2413 5.66582 16.8867C4.62073 15.5321 4.03759 13.878 4.00176 12.1675C3.96593 10.4569 4.47903 8.78001 5.46648 7.38281C6.45392 5.98561 7.86334 4.942 9.48772 4.40479C11.1121 3.86757 12.8661 3.86499 14.4919 4.39795C16.1177 4.93091 17.5298 5.97095 18.5209 7.36556" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg></span></button>';
-				const saveButton = '<button class="bookmarkBtn" onclick="actions.save()"><span class="IconContainer"><svg viewBox="0 0 256 256" height="18" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M74.34 85.66a8 8 0 0 1 11.32-11.32L120 108.69V24a8 8 0 0 1 16 0v84.69l34.34-34.35a8 8 0 0 1 11.32 11.32l-48 48a8 8 0 0 1-11.32 0ZM240 136v64a16 16 0 0 1-16 16H32a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h52.4a4 4 0 0 1 2.83 1.17L111 145a24 24 0 0 0 34 0l23.8-23.8a4 4 0 0 1 2.8-1.2H224a16 16 0 0 1 16 16m-40 32a12 12 0 1 0-12 12a12 12 0 0 0 12-12" fill="currentColor"></path></svg></span><p class="text">Enregistrer</p></button>';
+				const saveButton = '<button disabled class="bookmarkBtn save" onclick="actions.save()"><span class="IconContainer"><svg viewBox="0 0 256 256" height="18" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M74.34 85.66a8 8 0 0 1 11.32-11.32L120 108.69V24a8 8 0 0 1 16 0v84.69l34.34-34.35a8 8 0 0 1 11.32 11.32l-48 48a8 8 0 0 1-11.32 0ZM240 136v64a16 16 0 0 1-16 16H32a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h52.4a4 4 0 0 1 2.83 1.17L111 145a24 24 0 0 0 34 0l23.8-23.8a4 4 0 0 1 2.8-1.2H224a16 16 0 0 1 16 16m-40 32a12 12 0 1 0-12 12a12 12 0 0 0 12-12" fill="currentColor"></path></svg></span><p class="text">Enregistrer</p></button>';
 				[...document.querySelectorAll("#dataTable caption, #dataTable tfoot td")].forEach(e => {
 					if ("td" === e.nodeName.toLowerCase()) {
 						e.setAttribute("colspan", headers.length);

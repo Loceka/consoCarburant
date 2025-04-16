@@ -8,6 +8,7 @@
 			:root {
 				--header-color: darkslateblue;
 				--border-color: grey;
+				--border-radius: 0.5rem;
 				--container-width: 95rem;
 				--remove-row-width: 2rem;
 			}
@@ -37,12 +38,6 @@
 			html {
 				box-sizing: border-box;
 				font-size: clamp(0.7rem, 1.5vw, 1rem);
-				/*
-				-moz-text-size-adjust: none;
-				-webkit-text-size-adjust: none;
-				-ms-text-size-adjust: none;
-				text-size-adjust: none;
-				*/
 			}
 
 			*, *:before, *:after {
@@ -88,10 +83,14 @@
 				}
 			}
 
-			.responsive-table thead th {
+			.responsive-table thead tr {
 				position: sticky;
 				top: 0;
 				z-index: 1;
+				background-color: var(--body-bg-color);
+			}
+
+			.responsive-table thead th {
 				background-color: var(--header-bg-color);
 				color: var(--header-color);
 				border: 1px solid var(--border-color);
@@ -170,12 +169,6 @@
 				margin-bottom: 0;
 			}
 
-			@media screen and (min-width: 48em), screen and (orientation: landscape) {
-				.responsive-table tbody tr:nth-of-type(even) {
-					background-color: var(--striped-row-color);
-				}
-			}
-
 			.responsive-table tbody th[scope="row"] {
 				background-color: var(--header-bg-color);
 				color: var(--header-color);
@@ -201,6 +194,13 @@
 
 			.responsive-table tbody td:nth-child(odd) {
 				background-color: var(--striped-row-color);
+			}
+
+			@media screen and (min-width: 48em), screen and (orientation: landscape) {
+				.responsive-table tbody tr:nth-of-type(even) > th,
+				.responsive-table tbody tr:nth-of-type(even) > td {
+					background-color: var(--striped-row-color);
+				}
 			}
 
 			@media screen and (min-width: 48em), screen and (orientation: landscape) {
@@ -278,7 +278,8 @@
 				border-radius: 0.2rem 1.125rem 1.125rem 0.2rem;
 			}
 
-			.responsive-table tbody tr.error {
+			.responsive-table tbody tr.error th,
+			.responsive-table tbody tr.error td {
 				background-color: lightcoral;
 			}
 			.responsive-table tbody tr.error td[data-field="amount"] {
@@ -369,19 +370,19 @@
 			.responsive-table thead tr:first-child > *:first-child,
 			#statContainer .header:nth-child(2),
 			#statContainer .header:nth-child(10) {;
-				border-top-left-radius: 0.7rem;
+				border-top-left-radius: var(--border-radius);
 			}
 			.responsive-table tbody tr:last-child > *:first-child,
 			#statContainer .header:nth-child(9) {
-				border-bottom-left-radius: 0.7rem;
+				border-bottom-left-radius: var(--border-radius);
 			}
 			.responsive-table thead tr:first-child > *:last-child,
 			#statContainer .header:nth-last-child(9) {
-				border-top-right-radius: 0.7rem;
+				border-top-right-radius: var(--border-radius);
 			}
 			.responsive-table tbody tr:last-child > *:last-child,
 			#statContainer > *:nth-last-child(1) {
-				border-bottom-right-radius: 0.7rem;
+				border-bottom-right-radius: var(--border-radius);
 			}
 
 			h1 {

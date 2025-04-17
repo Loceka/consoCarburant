@@ -126,7 +126,9 @@
 				}
 			}
 
-			.responsive-table th, .responsive-table td {
+			.responsive-table th,
+			.responsive-table td:not(:has(> div:first-child)),
+			.responsive-table td > div:first-child {
 				padding: 0.5rem;
 				vertical-align: middle;
 			}
@@ -134,7 +136,6 @@
 			@media screen and (min-width: 48em), screen and (orientation: landscape) {
 				.responsive-table th, .responsive-table td {
 					display: table-cell;
-					padding: 0.5rem;
 				}
 			}
 
@@ -221,7 +222,7 @@
 				}
 			}
 
-			.responsive-table tbody td[data-type="text"] {
+			.responsive-table tbody *[data-type="text"] {
 				text-align: left;
 			}
 
@@ -286,6 +287,10 @@
 				background-color: tomato;
 			}
 
+			.responsive-table tbody td[data-autocomplete] {
+				position: relative;
+			}
+
 			.responsive-table tbody td[data-field="partial"] {
 				//background-image: url("https://img.icons8.com/?size=100&id=OdTzdyk9vCvs&format=png&color=23BB3C");
 				background-image: url("data:image/png;base64,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");
@@ -311,6 +316,43 @@
 				text-align: left;
 				font-style: italic;
 				color: var(--unit-color);
+			}
+
+			.autocompleteList {
+				position: absolute;
+				border: 1px solid #d4d4d4;
+				border-bottom: none;
+				border-top: none;
+				z-index: 99;
+				top: 100%;
+				left: 0;
+				right: 0;
+			}
+
+			.autocompleteList div {
+				padding: 0.35rem;
+				cursor: pointer;
+				text-align: left;
+				background-color: #6a7775;
+				border-bottom: 1px solid #d4d4d4;
+			}
+
+			.autocompleteList div.instruction {
+				color: #00ffea;
+				font-style: italic;
+			}
+
+			.autocompleteList div:hover {
+				filter: brightness(1.25);
+			}
+
+			/*when navigating through the items using the arrow keys:*/
+			.autocompleteList .selected {
+				background-color: deepskyblue !important;
+				color: #6a2275;
+			}
+			.autocompleteList div.instruction.selected {
+				color: #003531;
 			}
 
 			#statContainer {
@@ -497,52 +539,154 @@
 		</script>
 		<script type="text/javascript" src="Carburant.json"></script>
 		<script type="text/javascript">
-			const savedFields = ["date", "km", "price", "quantity", "amount", "location", "partial", "comment"];
-			const filledRowFields = savedFields.slice(0, savedFields.indexOf("amount") + 1);
-			const emptyRowFields = filledRowFields.slice(1);
 			const mapping = {};
 
 			const dayInMs = 1000 * 60 * 60 * 24, daysInMonth = 30.4375, daysInYear = 365.25;
 
-			let headers, lastEditableHeader;
 			const dateFormat = (d) => (d ?? new Date()).toLocaleDateString("fr-FR");
 			const zeroDigitFormat = new Intl.NumberFormat("fr-FR", {maximumFractionDigits: 0});
 			const twoDigitFormat = new Intl.NumberFormat("fr-FR", {minimumFractionDigits: 2, maximumFractionDigits: 2});
 			const threeDigitFormat = new Intl.NumberFormat("fr-FR", {minimumFractionDigits: 3, maximumFractionDigits: 3});
-			const format = {
-				of(rowData, field) {
-					return this[field]?.(rowData[field]) ?? rowData[field] ?? "";
+			const headers = [
+				{
+					field: "date",
+					title: "Date",
+					editable: true,
+					required: true,
+					type: "date",
 				},
-				km: (fieldData) => apply(zeroDigitFormat.format, fieldData),
-				price: (fieldData) => apply(threeDigitFormat.format, fieldData),
-				quantity: (fieldData) => apply(twoDigitFormat.format, fieldData),
-				amount: (fieldData) => apply(twoDigitFormat.format, fieldData),
-				distance: (fieldData) => apply(zeroDigitFormat.format, fieldData),
-				consumption: (fieldData) => apply(twoDigitFormat.format, fieldData),
-				duration: (fieldData) => apply(zeroDigitFormat.format, fieldData),
-				partial: () => "",
+				{
+					field: "km",
+					title: "Kilométrage",
+					format: zeroDigitFormat,
+					editable: true,
+					required: true,
+					type: "number",
+					unit: "km",
+				},
+				{
+					field: "price",
+					title: "Prix au litre",
+					format: threeDigitFormat,
+					editable: true,
+					required: true,
+					type: "number",
+					unit: "€",
+				},
+				{
+					field: "quantity",
+					title: "Quantité",
+					format: twoDigitFormat,
+					editable: true,
+					required: true,
+					type: "number",
+					unit: "L",
+				},
+				{
+					field: "amount",
+					title: "Montant",
+					format: twoDigitFormat,
+					editable: true,
+					required: true,
+					type: "number",
+					unit: "€",
+				},
+				{
+					field: "location",
+					title: "Provenance",
+					editable: true,
+					type: "text",
+					unit: "",
+				},
+				{
+					field: "distance",
+					title: "Distance",
+					format: zeroDigitFormat,
+					type: "number",
+					unit: "km",
+				},
+				{
+					field: "consumption",
+					title: "Consommation",
+					format: twoDigitFormat,
+					type: "number",
+					unit: "L/100km",
+				},
+				{
+					field: "duration",
+					title: "Délai",
+					format: zeroDigitFormat,
+					type: "number",
+					unit: "j",
+				},
+				{
+					field: "partial",
+					title: "Plein",
+					format: () => "",
+					editable: true,
+					type: "boolean",
+					customAtts: (atts, fieldData) => { if (fieldData) { atts.push('class="partial"') } },
+				},
+				{
+					field: "comment",
+					title: "Commentaire",
+					editable: true,
+					type: "text",
+				},
+			];
+			headers.forEach(h => headers[h.field] = h);
+
+			const savedFields = headers.filter(({editable}) => editable).map(({field}) => field);
+			const lastEditableField = savedFields.at(-1);
+			const requiredRowFields = headers.filter(({required}) => required).map(({field}) => field);
+			const emptyRowFields = requiredRowFields.filter(field => field !== "date");
+
+			function formatField(rowData, field) {
+				const fieldFormat = headers[field].format;
+				return (fieldFormat instanceof Intl.NumberFormat ? apply(fieldFormat.format, rowData[field]) : fieldFormat?.(rowData[field])) ?? rowData[field] ?? "";
+			}
+
+			function fieldAttributes(rowData, field) {
+					const atts = [];
+					const header = headers[field];
+					atts.push(`id="${getRowFieldId(rowData.id, field)}"`);
+					header.type && atts.push(`data-type="${header.type}"`);
+					(header.type === "number") && atts.push('inputmode="decimal"');
+					(header.type === "text") && atts.push('data-autocomplete="true"');
+					(header.type === "text") && atts.push('spellcheck="false"');
+					header.unit && atts.push(`data-unit="${header.unit}"`);
+					header.editable && atts.push('contenteditable="true"');
+					header.customAtts?.(atts, rowData?.[field]);
+					return atts.join(' ');
+			}
+
+			const instructions = {
+				of(rowData) {
+					Object.entries(rowData).forEach(([field, value]) => {
+						Object.values(this[field] ?? {}).forEach(instruction => instruction(rowData, field, value));
+					});
+				},
+				comment: {
+					"additif: <quantité>" : (rowData, field, fieldValue) => {
+						delete rowData.realQuantity;
+						const match = (fieldValue ?? "").match(/^additif:\s*([.,\d]+)\s*([cdm]?)L\b/i);
+						if (match) {
+							const addedQuantity = Number(match[1].replace(",", "."));
+							const unitModifier = ({d: 10, c: 100, m: 1000})[match[2].toLowerCase()] ?? 1;
+							if (!isNaN(addedQuantity) && rowData) {
+								rowData.realQuantity = rowData.quantity + (addedQuantity / unitModifier);
+							}
+						}
+					},
+				},
 			};
 
-			const attributes = {
-				of(field, rowData) {
-					const atts = [];
-					atts.push(`id="${getRowFieldId(rowData.id, field)}"`);
-					if (savedFields.includes(field)) {
-						atts.push('contenteditable="true"');
-					}
-					this[field]?.(atts, rowData?.[field]);
-					return atts.join(' ');
+			const autocompleteLists = {
+				of(field, instructionsOnly) {
+					return Object.entries(Object.assign({}, (!instructionsOnly && this[field]) ?? {}, instructions[field] ?? {})).map(([k, v]) => [k, v === true ? "" : 'class="instruction"']).sort(([k1], [k2]) => k1 < k2 ? -1 : k1 > k2 ? 1 : 0);
 				},
-				km: (atts) => atts.push('data-unit="km"'),
-				price: (atts) => atts.push('data-unit="€"'),
-				quantity: (atts) => atts.push('data-unit="L"'),
-				amount: (atts) => atts.push('data-unit="€"'),
-				location: (atts) => atts.push('data-type="text"'),
-				distance: (atts) => atts.push('data-unit="km"'),
-				consumption: (atts) => atts.push('data-unit="L/100km"'),
-				duration: (atts) => atts.push('data-unit="j"'),
-				partial: (atts, fieldData) => { if (fieldData) { atts.push('class="partial"') } }
 			};
+			headers.filter(({type}) => type === "text").forEach(({field}) => autocompleteLists[field] = {});
 
 			const actions = {
 				index: 0,
@@ -621,12 +765,22 @@
 					});
 				},
 				updateField(rowData, field, newValue, fromHistory) {
+					const oldValue = rowData[field];
 					if (!fromHistory) {
-						this.addAction({ rowData: rowData, field: field, oldValue: rowData[field], newValue: newValue });
+						this.addAction({ rowData: rowData, field: field, oldValue: oldValue, newValue: newValue });
 					}
 					rowData[field] = newValue;
 					if (fromHistory) {
-						document.getElementById(getRowFieldId(rowData.id, field)).textContent = format.of(rowData, field);
+						document.getElementById(getRowFieldId(rowData.id, field)).textContent = formatField(rowData, field);
+					}
+					const autocompleteList = autocompleteLists[field];
+					if (autocompleteList) {
+						if (newValue) {
+							autocompleteList[newValue] = true;
+						}
+						if (!dataArray.some(({[field]:fieldValue}) => oldValue === fieldValue)) {
+							delete autocompleteList[oldValue];
+						}
 					}
 					processChanges(rowData, field === "partial");
 				},
@@ -646,8 +800,7 @@
 
 					const tbody = document.querySelector("#dataTable tbody");
 					tbody.insertAdjacentHTML('beforeend', createRow(headers, rowData, index));
-					[...document.querySelectorAll('#dataTable tr:last-of-type *[contenteditable="true"]')].forEach(elem => addEventListeners(elem));
-					addRemoveRowElems();
+					embedCellContentAndAddListeners();
 
 					if (!historyRowData) {
 						this.addAction({ addedRowData: rowData });
@@ -686,8 +839,7 @@
 					mapping[rowData.id] = rowData;
 
 					[...document.querySelectorAll(`*[id|="${oldRowId}"]`)].forEach(e => {
-						const field = e.dataset.field;
-						e.setAttribute("id", field ? getRowFieldId(rowData.id, field) : rowData.id);
+						e.setAttribute("id", e.getAttribute("id").replace(oldRowId, rowData.id));
 					});
 				},
 			};
@@ -728,7 +880,7 @@
 			}
 
 			function isFilledRowData(rowData) {
-				return filledRowFields.every(f => rowData[f]);
+				return requiredRowFields.every(f => rowData[f]);
 			}
 
 			function saveDataArray() {
@@ -760,8 +912,15 @@
 				return rowId + "-" + field;
 			}
 
+			function getRowFieldListId(rowFieldId) {
+				return rowFieldId + "-list";
+			}
+
 			function expandData(dataArray, rowData, i) {
 				const update = rowData.id;
+
+				// apply custom instructions
+				instructions.of(rowData);
 
 				rowData.dateInMs = dateToMS(rowData.date);
 				rowData.distance = apply((current, prev) => current - prev, rowData.km, dataArray[i-1]?.km);
@@ -769,10 +928,10 @@
 
 				rowData.consumption = undefined;
 				if (!rowData.partial) {
-					let start = dataArray[i-1]?.km, quantity = rowData.quantity, j = i;
+					let start = dataArray[i-1]?.km, quantity = rowData.realQuantity ?? rowData.quantity, j = i;
 					while(!isNaN(quantity) && dataArray[--j]?.partial) {
 						start = dataArray[j-1]?.km;
-						quantity += dataArray[j].quantity;
+						quantity += dataArray[j].realQuantity ?? dataArray[j].quantity;
 					}
 					rowData.consumption = apply((q, currD, prevD) => q * 100 / (currD - prevD), quantity || undefined, rowData.km, start);
 				}
@@ -785,24 +944,52 @@
 				);
 
 				if (update) {
-					console.log("updating data", rowData.id);
 					const dynamicFields = ["distance", "duration", "consumption"];
 					const rowElem = document.getElementById(rowData.id);
 					rowElem?.classList[rowData.error ? "add" : "remove"]("error");
 					rowElem?.[(rowData.error ? "set" : "remove")+"Attribute"]("title", rowData.error);
 					rowElem?.querySelectorAll(dynamicFields.map(f => "#"+getRowFieldId(rowData.id, f)).join(",")).forEach(elem => {
-						elem.textContent = format.of(rowData, getField(elem));
+						elem.textContent = formatField(rowData, getField(elem));
 					});
+
+					document.getElementById(getRowFieldId(rowData.id, "partial"))?.classList[rowData.partial ? "add" : "remove"]("partial");
 				}
 			}
 
-			function addRemoveRowElems() {
-				const containers = document.querySelectorAll(":nth-child(1 of .responsive-table tbody td:not([contenteditable])):not(:has(.removeRow))");
-				[...containers].forEach(e => {
-					const attrs = [...e.attributes].filter(({name}) => name !== "data-title").map(({name, value}) => (e.removeAttribute(name), `${name}="${value}"`)).join(" ");
-					e.insertAdjacentHTML('beforeend', `<span ${attrs}>${e.textContent}</span>`);
-					e.insertAdjacentHTML('beforeend', `<span class="removeRow" onmousedown="actions.removeRow(getRowData(this.parentElement.parentElement.id))" title="Supprimer la ligne"></span>`);
+			function embedCellContentAndAddListeners(lastLine) {
+				const fixedAttrs = ["data-title", "data-autocomplete"];
+				function moveAttributes(e, otherActions) {
+					const fieldId = e.id;
+					const attrs = [...e.attributes].filter(({name}) => !fixedAttrs.includes(name)).map(({name, value}) => (e.removeAttribute(name), `${name}="${value}"`)).join(" ");
+					e.insertAdjacentHTML('beforeend', `<div ${attrs}>${e.textContent}</div>`);
 					e.firstChild.data = "";
+					otherActions?.(e, fieldId);
+				}
+
+				// Add the remove row option
+				let containers = document.querySelectorAll(":nth-child(1 of .responsive-table tbody td[data-field]:not([contenteditable]))");
+				[...containers].forEach(e => moveAttributes(e, e => {
+					e.insertAdjacentHTML('beforeend', `<span class="removeRow" onmousedown="actions.removeRow(getRowData(this.parentElement.parentElement.id))" title="Supprimer la ligne"></span>`);
+				}));
+
+				// Add autocompletion
+				containers = document.querySelectorAll(".responsive-table tbody td[data-field][data-autocomplete]");
+				[...containers].forEach(e => moveAttributes(e, (e, fieldId) => {
+					e.insertAdjacentHTML('beforeend', `<div id="${getRowFieldListId(fieldId)}" class="autocompleteList"></div>`);
+				}));
+
+				// Add listeners
+				const linePrefix = lastLine ? "#dataTable tr:last-of-type " : "";
+				[...document.querySelectorAll(linePrefix + '*[contenteditable="true"]')].forEach(addContentEditableEventListeners);
+
+				// Populate autocomplete lists
+				[...document.querySelectorAll(linePrefix + '.autocompleteList')].forEach(elem => {
+					const rowData = getRowData(elem.id);
+					const field = getField(elem.previousSibling);
+					const value = rowData[field];
+					if (value) {
+						autocompleteLists[field][value] = true;
+					}
 				});
 			}
 
@@ -811,14 +998,11 @@
 				rowData.index = index;
 				mapping[rowData.id] = rowData;
 				return `<tr id=${getRowId(index)} ${rowData.error ? `class="error" title="${rowData.error}"` : ''}>`
-					+ headers.map((h, i) => `<${i === 0 ? 'th scope="row"' : 'td'} data-title="${h.title}" data-field="${h.field}" ${attributes.of(h.field, rowData)}>${format.of(rowData, h.field)}</${i === 0 ? 'th' : 'td'}>`).join('')
+					+ headers.map((h, i) => `<${i === 0 ? 'th scope="row"' : 'td'} data-title="${h.title}" data-field="${h.field}" ${fieldAttributes(rowData, h.field)}>${formatField(rowData, h.field)}</${i === 0 ? 'th' : 'td'}>`).join('')
 					+ "</tr>";
 			}
 
 			function createTable() {
-				headers = [...document.querySelectorAll("#dataTable thead th")].map(h => ({title: h.textContent, field: getField(h)}));
-				lastEditableHeader = headers.map(h => h.field).findLast(f => savedFields.includes(f));
-
 				const addLineButton = '<button class="bookmarkBtn" onclick="actions.addRow()"><span class="IconContainer">+</span><p class="text">Nouvelle ligne</p></button>';
 				const undoButton = '<button disabled class="bookmarkBtn undo" title="Annuler" onclick="actions.undo()"><span class="IconContainer"><svg viewBox="0 0 24 24" height="18" width="18" fill="none" stroke="#ffffff" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><g stroke-linecap="round" stroke-linejoin="round"></g><g> <g> <path d="M10 8H5V3M5.29102 16.3569C6.22284 17.7918 7.59014 18.8902 9.19218 19.4907C10.7942 20.0913 12.547 20.1624 14.1925 19.6937C15.8379 19.225 17.2893 18.2413 18.3344 16.8867C19.3795 15.5321 19.963 13.878 19.9989 12.1675C20.0347 10.4569 19.5211 8.78001 18.5337 7.38281C17.5462 5.98561 16.1366 4.942 14.5122 4.40479C12.8878 3.86757 11.1341 3.86499 9.5083 4.39795C7.88252 4.93091 6.47059 5.97095 5.47949 7.36556" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg></span></button>';
 				const redoButton = '<button disabled class="bookmarkBtn redo" title="Répéter" onclick="actions.redo()"><span class="IconContainer"><svg viewBox="0 0 24 24" height="18" width="18" fill="none" stroke="#ffffff" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><g stroke-linecap="round" stroke-linejoin="round"></g><g> <g> <path d="M13.9998 8H18.9998V3M18.7091 16.3569C17.7772 17.7918 16.4099 18.8902 14.8079 19.4907C13.2059 20.0913 11.4534 20.1624 9.80791 19.6937C8.16246 19.225 6.71091 18.2413 5.66582 16.8867C4.62073 15.5321 4.03759 13.878 4.00176 12.1675C3.96593 10.4569 4.47903 8.78001 5.46648 7.38281C6.45392 5.98561 7.86334 4.942 9.48772 4.40479C11.1121 3.86757 12.8661 3.86499 14.4919 4.39795C16.1177 4.93091 17.5298 5.97095 18.5209 7.36556" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg></span></button>';
@@ -831,21 +1015,139 @@
 					e.firstElementChild.insertAdjacentHTML('beforeend', '<span class="actions">'+undoButton+redoButton+saveButton+'</span>');
 				});
 
+
+				const theadRow = document.querySelector("#dataTable thead tr");
+				headers.forEach(({field, title}) => theadRow.insertAdjacentHTML('beforeend', `<th scope="col" data-field="${field}">${title}</th>`));
+
 				const tbody = document.querySelector("#dataTable tbody");
 				dataArray.forEach((rowData, i) => {
 					expandData(dataArray, rowData, i);
 					tbody.insertAdjacentHTML('beforeend', createRow(headers, rowData, i));
 				});
-				[...document.querySelectorAll('*[contenteditable="true"]')].forEach(elem => addEventListeners(elem));
-				addRemoveRowElems();
+				embedCellContentAndAddListeners();
 			}
 
-			const eventListeners = {
+			function setAutoText(event, rowFieldId, text) {
+				event.preventDefault();
+				event.stopPropagation();
+
+				const elem = document.getElementById(rowFieldId);
+				if (elem) {
+					const isInstr = event.target?.classList.contains("instruction");
+					let startIndex, endIndex;
+					if (isInstr) {
+						text = text.replace(/<(.+?)>/, (m, group, start) => {
+							startIndex = start;
+							endIndex = start + group.length;
+							return group;
+						});
+					}
+					document.getElementById(rowFieldId).textContent = text;
+
+					// set caret at the end
+					const range = document.createRange();
+					if (startIndex && endIndex) {
+						range.setStart(elem.firstChild, startIndex);
+						range.setEnd(elem.firstChild, endIndex);
+					} else {
+						range.selectNodeContents(elem);
+						range.collapse(false);
+					}
+					const selection = window.getSelection();
+					selection.removeAllRanges();
+					selection.addRange(range);
+				}
+
+				clearAutocompleteElems();
+			}
+
+			function clearAutocompleteElems(elem) {
+				(elem ? [elem] : [...document.querySelectorAll(".autocompleteList")]).forEach(e => {
+					e.selectedIndex = -1;
+					while (e.firstChild) {
+						e.removeChild(e.lastChild);
+					}
+				});
+			}
+
+			function handleAutocompleteListener(eventOrInstructionsOnly, elem, field) {
+				const listElem = document.getElementById(getRowFieldListId(elem.id));
+				if (eventOrInstructionsOnly === true) {
+					clearAutocompleteElems(listElem);
+					const matches = autocompleteLists.of(field, eventOrInstructionsOnly);
+					matches.forEach(([fieldValue, attrs]) => {
+						listElem.insertAdjacentHTML('beforeend', `<div ${attrs} onmousedown="setAutoText(event, '${elem.id}', this.querySelector('input')?.value)">${fieldValue}<input type="hidden" value="${fieldValue}" /></div>`);
+					});
+					return true;
+				}
+
+				const event = eventOrInstructionsOnly;
+				const handledKeyDowns = ["Enter", "Escape", "ArrowDown", "ArrowUp"];
+				const handkedKeyUps = ["Backspace"];
+				const key = event.key;
+				console.log("handleAutocompleteListener", key)
+				if (!listElem || event.ctrlKey || event.metaKey || !((listElem.hasChildNodes() && handledKeyDowns.includes(key)) || handkedKeyUps.includes(key) || (key?.length === 1))) {
+					return false;
+				}
+
+				if ((event.type === "keydown") && handledKeyDowns.includes(key)) {
+					const items = listElem.childNodes;
+					let selectedItem;
+					switch(key) {
+						case "Enter" :
+							if (listElem.selectedIndex !== -1) {
+								items[listElem.selectedIndex]?.dispatchEvent(new Event("mousedown"));
+							} else {
+								return false;
+							}
+							break;
+						case "Escape" :
+							clearAutocompleteElems(listElem);
+							break;
+						case "ArrowUp" :
+							listElem.selectedIndex = listElem.selectedIndex === -1 ? 0 : listElem.selectedIndex;
+							listElem.selectedIndex = (items.length + listElem.selectedIndex - 1) % items.length;
+							selectedItem = items[listElem.selectedIndex];
+							break;
+						case "ArrowDown" :
+							listElem.selectedIndex = (items.length + listElem.selectedIndex + 1) % items.length;
+							selectedItem = items[listElem.selectedIndex];
+							break;
+					}
+
+					if (selectedItem) {
+						listElem.querySelector(".selected")?.classList.remove("selected");
+						selectedItem.classList.add("selected");
+						selectedItem.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+					}
+				} else if ((event.type === "keyup") && (handkedKeyUps.includes(key) || (key?.length === 1))) {
+					clearAutocompleteElems(listElem);
+					const text = elem.textContent.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+					const regex = new RegExp(`(${text})`, "i");
+					const matches = autocompleteLists.of(field)?.filter(fieldValue => regex.test(fieldValue));
+					if ((matches.length === 1) && matches[0] === text) {
+						return false;
+					}
+					matches.forEach(([fieldValue, attrs]) => {
+						listElem.insertAdjacentHTML('beforeend', `<div ${attrs} onmousedown="setAutoText(event, '${elem.id}', this.querySelector('input')?.value)">${fieldValue.replace(regex, "<strong>$1</strong>")}<input type="hidden" value="${fieldValue}" /></div>`);
+					});
+				} else {
+					return false;
+				}
+
+				event.preventDefault?.();
+				event.stopPropagation?.();
+
+				return true;
+			}
+
+			const contentEditableEventListeners = {
 				onfocus: (event) => {
 					cellData(event.target);
 					window.getSelection().selectAllChildren(event.target);
 				},
 				onblur: (event) => {
+					clearAutocompleteElems();
 					cellData(event.target, event.target.textContent);
 				},
 				onkeydown: (event) => {
@@ -863,9 +1165,12 @@
 							event.stopPropagation();
 						}
 					}
-					if (isLast && !event.defaultPrevented && (("ArrowDown" === event.key) || ((field === lastEditableHeader) && ("Tab" === event.key)))) {
+					if (handleAutocompleteListener(event, elem, field)) {
+						return;
+					}
+					if (isLast && !event.defaultPrevented && (("ArrowDown" === event.key) || ((field === lastEditableField) && (!event.shiftKey && ("Tab" === event.key))))) {
 						event.preventDefault();
-						addRow();
+						actions.addRow();
 					} else if (!event.defaultPrevented && (["Enter", "Escape", "ArrowDown", "ArrowUp"].includes(event.key) || ((event.code === "Space") && partialElem))) {
 						event.preventDefault();
 						if (["ArrowDown", "ArrowUp"].includes(event.key)) {
@@ -889,6 +1194,9 @@
 						}
 					}
 				},
+				onkeyup: (event) => {
+					handleAutocompleteListener(event, event.target, getField(event.target));
+				},
 				onmousedown: (event) => {
 					const elem = event.target;
 					if (elem.classList.contains("editing") && getField(elem) === "partial") {
@@ -899,15 +1207,11 @@
 					}
 				},
 			};
-			function addEventListeners(elem) {
-				Object.entries(eventListeners).forEach(([ev, func]) => elem[ev] = func);
+			function addContentEditableEventListeners(elem) {
+				Object.entries(contentEditableEventListeners).forEach(([ev, func]) => elem[ev] = func);
 			}
 
 			function cellData(elem, newValue) {
-				/* Autocomplete on contenteditable
-https://medium.com/naukri-engineering/unlocking-rich-text-editing-with-htmls-contenteditable-attribute-a-developer-s-guide-81a63a0e0b46
-https://jsfiddle.net/4Lmfn3qo/
-				*/
 				const rowData = getRowData(elem.id);
 				const field = getField(elem);
 				let curVal = rowData[field];
@@ -927,26 +1231,27 @@ https://jsfiddle.net/4Lmfn3qo/
 					if (newValue !== curVal) {
 						actions.updateField(rowData, field, newValue);
 					}
-					elem.textContent = format.of(rowData, field);
+					elem.textContent = formatField(rowData, field);
 					elem.classList.remove("editing");
 				} else if (field !== "partial") {
 					elem.textContent = curVal;
+
+					if (!curVal && instructions[field]) {
+						handleAutocompleteListener(true, elem, field);
+					}
 				}
 			}
 
 			function processChanges(rowData, partialChanged) {
-				if (partialChanged) {
+				expandData(dataArray, rowData, rowData.index);
+				if (partialChanged || rowData.partial) {
 					let targetRowData = rowData;
 					do {
 						targetRowData = adjacentRowData(targetRowData, 1);
 						processChanges(targetRowData);
 					} while(targetRowData?.partial);
-				}
-				if (rowData) {
-					expandData(dataArray, rowData, rowData.index);
-					if (!rowData.partial) {
-						generateStats();
-					}
+				} else {
+					generateStats();
 				}
 			}
 
@@ -1030,21 +1335,7 @@ https://jsfiddle.net/4Lmfn3qo/
 			<div class="table-container">
 				<table id="dataTable" class="responsive-table">
 					<caption><div></div></caption>
-					<thead>
-						<tr>
-							<th scope="col" data-field="date">Date</th>
-							<th scope="col" data-field="km">Kilométrage</th>
-							<th scope="col" data-field="price">Prix au litre</th>
-							<th scope="col" data-field="quantity">Quantité</th>
-							<th scope="col" data-field="amount">Montant</th>
-							<th scope="col" data-field="location">Provenance</th>
-							<th scope="col" data-field="distance">Distance</th>
-							<th scope="col" data-field="consumption">Consommation</th>
-							<th scope="col" data-field="duration">Délai</th>
-							<th scope="col" data-field="partial">Plein</th>
-							<th scope="col" data-field="comment">Commentaire</th>
-						</tr>
-					</thead>
+					<thead><tr></tr></thead>
 					<tfoot><tr><td><div></div></td></tr></tfoot>
 					<tbody>
 					</tbody>

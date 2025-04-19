@@ -1614,21 +1614,19 @@
 				years.forEach(year => applyStats(statCont, year));
 			}
 
-			function populate() {
-				u.loaded.then(() => {
-					actions.load().then(() => {
-						actions.addEventListeners();
-						createTable();
-						generateStats();
-						document.body.classList.remove("blank");
-					}).catch((e) => {
-						alert(e instanceof Event ? "Vous devez choisir un fichier ou fournir une URL valide" : "Erreur lors du parsing du fichier");
-					});
+			u.launchScript().then(() => {
+				actions.load().then(() => {
+					actions.addEventListeners();
+					createTable();
+					generateStats();
+					document.body.classList.remove("blank");
+				}).catch((e) => {
+					alert(e instanceof Event ? "Vous devez choisir un fichier ou fournir une URL valide" : "Erreur lors du parsing du fichier");
 				});
-			}
+			});
 		</script>
 	</head>
-	<body class="blank" onload="populate()">
+	<body class="blank">
 		<div class="container">
 			<h1>Statistiques</h1>
 			<div id="statContainer"></div>
